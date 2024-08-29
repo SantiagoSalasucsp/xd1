@@ -1,0 +1,136 @@
+-- ---
+-- Globals
+-- ---
+
+-- SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+-- SET FOREIGN_KEY_CHECKS=0;
+
+-- ---
+-- Table 'aerolínea'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `aerolínea`;
+		
+CREATE TABLE `aerolínea` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `nombre` VARCHAR NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'aeropuerto'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `aeropuerto`;
+		
+CREATE TABLE `aeropuerto` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `ciudad` VARCHAR NULL DEFAULT NULL,
+  `país` VARCHAR NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'pasajero'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `pasajero`;
+		
+CREATE TABLE `pasajero` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `nombre` VARCHAR NULL DEFAULT NULL,
+  `apellidos` VARCHAR NULL DEFAULT NULL,
+  `recibo` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'vuelo'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `vuelo`;
+		
+CREATE TABLE `vuelo` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `hora_llegada` INTEGER NULL DEFAULT NULL,
+  `hora_salida` INTEGER NULL DEFAULT NULL,
+  `modelo_avión` VARCHAR NULL DEFAULT NULL,
+  `milla` INTEGER NULL DEFAULT NULL,
+  `estado` VARCHAR NULL DEFAULT NULL,
+  `comida` INTEGER NULL DEFAULT NULL,
+  `id_aerolínea` INTEGER NULL DEFAULT NULL,
+  `id_llegada` INTEGER NULL DEFAULT NULL,
+  `id_salida` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'reserva'
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `reserva`;
+		
+CREATE TABLE `reserva` (
+  `id` INTEGER NULL AUTO_INCREMENT DEFAULT NULL,
+  `cabina` VARCHAR NULL DEFAULT NULL,
+  `acientos` VARCHAR NULL DEFAULT NULL,
+  `id_pasajero` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id`)
+);
+
+-- ---
+-- Table 'vuelo-reserva '
+-- 
+-- ---
+
+DROP TABLE IF EXISTS `vuelo-reserva `;
+		
+CREATE TABLE `vuelo-reserva ` (
+  `id_reserva` INTEGER NULL DEFAULT NULL,
+  `id_vuelo` INTEGER NULL DEFAULT NULL,
+  PRIMARY KEY (`id_reserva`, `id_vuelo`)
+);
+
+-- ---
+-- Foreign Keys 
+-- ---
+
+ALTER TABLE `vuelo` ADD FOREIGN KEY (id_aerolínea) REFERENCES `aerolínea` (`id`);
+ALTER TABLE `vuelo` ADD FOREIGN KEY (id_llegada) REFERENCES `aeropuerto` (`id`);
+ALTER TABLE `vuelo` ADD FOREIGN KEY (id_salida) REFERENCES `aeropuerto` (`id`);
+ALTER TABLE `reserva` ADD FOREIGN KEY (id_pasajero) REFERENCES `pasajero` (`id`);
+ALTER TABLE `vuelo-reserva ` ADD FOREIGN KEY (id_reserva) REFERENCES `reserva` (`id`);
+ALTER TABLE `vuelo-reserva ` ADD FOREIGN KEY (id_vuelo) REFERENCES `vuelo` (`id`);
+
+-- ---
+-- Table Properties
+-- ---
+
+-- ALTER TABLE `aerolínea` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `aeropuerto` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `pasajero` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `vuelo` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `reserva` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+-- ALTER TABLE `vuelo-reserva ` ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_bin;
+
+-- ---
+-- Test Data
+-- ---
+
+-- INSERT INTO `aerolínea` (`id`,`nombre`) VALUES
+-- ('','');
+-- INSERT INTO `aeropuerto` (`id`,`ciudad`,`país`) VALUES
+-- ('','','');
+-- INSERT INTO `pasajero` (`id`,`nombre`,`apellidos`,`recibo`) VALUES
+-- ('','','','');
+-- INSERT INTO `vuelo` (`id`,`hora_llegada`,`hora_salida`,`modelo_avión`,`milla`,`estado`,`comida`,`id_aerolínea`,`id_llegada`,`id_salida`) VALUES
+-- ('','','','','','','','','','');
+-- INSERT INTO `reserva` (`id`,`cabina`,`acientos`,`id_pasajero`) VALUES
+-- ('','','','');
+-- INSERT INTO `vuelo-reserva ` (`id_reserva`,`id_vuelo`) VALUES
+-- ('','');
